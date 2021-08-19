@@ -63,7 +63,6 @@ class App(QMainWindow):
         self.show()
 
     def _cb_range_min_update(self, value):
-        print(f'set minimum range to {value}')
         try:
             min_range = int(value)
         except ValueError:
@@ -73,13 +72,11 @@ class App(QMainWindow):
         self.canvas.draw()
 
     def _cb_range_opt_update(self, value):
-        print(f'set optimal range to {value}')
         self.jhv.gun.update(optimal_range=int(value))
         self.jhv.visualize(show=False, ax=self.canvas.subplot_ax)
         self.canvas.draw()
 
     def _cb_range_max_update(self, value):
-        print(f'set maximum range to {value}')
         self.jhv.gun.update(max_range=int(value))
         self.jhv.visualize(show=False, ax=self.canvas.subplot_ax)
         self.canvas.draw()
