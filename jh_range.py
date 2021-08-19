@@ -19,12 +19,15 @@ class JupiterHellGun():
         return f'{self.optimal}/{self.max}'
 
 class JupiterHellRangeVisualizer():
-    def __init__(self, area=7 ):
+    def __init__(self, area=7, vision_threshold=6.5 ):
         distance_matrix = np.zeros( [area+1,area+1] )
         for x in range(area+1):
             for y in range(area+1):
                 distance_matrix[y, x] = ( (x**2) + (y**2) ) ** 0.5
         self._distance_matrix = distance_matrix
+
+        self._distance_matrix_v = distance_matrix.copy()
+        self._distance_matrix_v[ self._distance_matrix_v > vision_threshold ] = 0
 
         self.gun = JupiterHellGun()
 
@@ -41,7 +44,13 @@ class JupiterHellRangeVisualizer():
         return self._distance_matrix
 
     @property
-    def to_hit(self):
+    def distance_matrix_v(self):
+        return self._distance_matrix_v
+
+    @property
+    def to_hit(self, vision_limited=True):
+        if vision_limited:
+            return np.vectorize(self._to_hit)(self.distance_matrix_v)
         return np.vectorize(self._to_hit)(self.distance_matrix)
 
     def visualize(self, show=True, out_filename=None, ax=None):
