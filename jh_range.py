@@ -19,7 +19,7 @@ class JupiterHellGun():
         return f'{self.optimal}/{self.max}'
 
 class JupiterHellRangeVisualizer():
-    def __init__(self, area=7, vision_threshold=6.5 ):
+    def __init__(self, area=7, vision_threshold=6.25 ):
         distance_matrix = np.zeros( [area+1,area+1] )
         for x in range(area+1):
             for y in range(area+1):
