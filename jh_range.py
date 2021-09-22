@@ -37,7 +37,12 @@ class JupiterHellRangeVisualizer():
         elif distance <= self.gun.optimal:
             return 1.0
         else: 
-            return max( 0.0, 1.0 - ( ( distance - self.gun.optimal ) / ( 1 + self.gun.max - self.gun.optimal ) ) )
+            hit_chance = 0.0
+            try:
+                hit_chance = 1.0 - ( ( distance - self.gun.optimal ) / ( 1 + self.gun.max - self.gun.optimal ) )
+            except ZeroDivisionError:
+                pass
+            return max(0.0, hit_chance)
 
     @property
     def distance_matrix(self):
