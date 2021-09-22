@@ -46,7 +46,7 @@ class App(QMainWindow):
         cb_range_opt = QComboBox(self)
         cb_range_opt.setToolTip('Optimal Range')
         cb_range_opt.move(450,560)
-        for i in range(2, 10):
+        for i in range(1, 10):
             cb_range_opt.addItem(f'{i}', i)
         cb_range_opt.setCurrentIndex(cb_range_opt.findData(3))
         cb_range_opt.currentTextChanged.connect(self._cb_range_opt_update)
